@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AC2RE.Tools", "AC2RE.Tools\AC2RE.Tools.csproj", "{08325227-2A28-40AE-BFD6-1EF3A152062D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC2RE.ToolsTest", "AC2RE.ToolsTest\AC2RE.ToolsTest.csproj", "{96CFF015-0CBF-493A-A262-3812CB5F2D2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{08325227-2A28-40AE-BFD6-1EF3A152062D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08325227-2A28-40AE-BFD6-1EF3A152062D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08325227-2A28-40AE-BFD6-1EF3A152062D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96CFF015-0CBF-493A-A262-3812CB5F2D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96CFF015-0CBF-493A-A262-3812CB5F2D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96CFF015-0CBF-493A-A262-3812CB5F2D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96CFF015-0CBF-493A-A262-3812CB5F2D2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

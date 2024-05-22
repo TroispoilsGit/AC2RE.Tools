@@ -37,7 +37,7 @@ public class QuadTree
 
     public bool Insert(Vector3 point)
     {
-        if (!Contains(point)) return false;
+        if (!Contains(bound, point)) return false;
 
         if (points.Count < capacitie)
         {
@@ -59,7 +59,24 @@ public class QuadTree
         return false;
     }
 
-    public bool Contains(Vector3 point)
+    public List<Vector3> Query(Bound range, List<Vector3> listPoints) {
+        if(!bound.Intersect(range)) return listPoints;
+
+        foreach(var point in points) {
+            if(Contains(range, point)) listPoints.Add(point);
+        }
+
+        if(divided) {
+            nw.Query(range, listPoints);
+            ne.Query(range, listPoints);
+            sw.Query(range, listPoints);
+            se.Query(range, listPoints);
+        }
+
+        return listPoints;
+    }
+
+    public bool Contains(Bound bound, Vector3 point)
     {
         return point.X >= bound.xMin && point.X < bound.xMax &&
                point.Y >= bound.yMin && point.Y < bound.yMax;
