@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Drawing;
+using System.Numerics;
 
 namespace AC2RE.Tools;
 
@@ -13,14 +14,16 @@ public class QuadTree
     public QuadTree? se { get; set; }
     public List<Vector3> points { get; set; }
 
-    public QuadTree(Bound bound, int capacitie = 4) {
+    public QuadTree(Bound bound, int capacitie = 4)
+    {
         this.bound = bound;
         this.capacitie = capacitie;
         points = new List<Vector3>();
         divided = false;
     }
 
-    public void SubDivide() {
+    public void SubDivide()
+    {
         var xC = (bound.xMin + bound.xMax) / 2;
         var yC = (bound.yMin + bound.yMax) / 2;
 
@@ -30,5 +33,35 @@ public class QuadTree
         se = new QuadTree(new Bound(xC, bound.yMin, bound.xMax, yC));
 
         divided = true;
+    }
+
+    public bool Insert(Vector3 point)
+    {
+        if (!Contains(point)) return false;
+
+        if (points.Count < capacitie)
+        {
+            points.Add(point);
+            return true;
+        }
+        else
+        {
+            if (!divided)
+                SubDivide();
+
+            if(nw == null || ne == null || sw == null || se == null) return false;
+            if (nw.Insert(point) || ne.Insert(point) || sw.Insert(point) || se.Insert(point))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool Contains(Vector3 point)
+    {
+        return point.X >= bound.xMin && point.X < bound.xMax &&
+               point.Y >= bound.yMin && point.Y < bound.yMax;
     }
 }
