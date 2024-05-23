@@ -1,10 +1,8 @@
-﻿using System.Drawing;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace AC2RE.Tools;
 
-public class QuadTree
-{
+public class QuadTree {
     public Bound bound { get; set; }
     public int capacitie { get; set; }
     public bool divided { get; set; }
@@ -14,16 +12,14 @@ public class QuadTree
     public QuadTree? se { get; set; }
     public List<Vector3> points { get; set; }
 
-    public QuadTree(Bound bound, int capacitie = 4)
-    {
+    public QuadTree(Bound bound, int capacitie = 4) {
         this.bound = bound;
         this.capacitie = capacitie;
         points = new List<Vector3>();
         divided = false;
     }
 
-    public void SubDivide()
-    {
+    public void SubDivide() {
         var xC = (bound.xMin + bound.xMax) / 2;
         var yC = (bound.yMin + bound.yMax) / 2;
 
@@ -35,23 +31,19 @@ public class QuadTree
         divided = true;
     }
 
-    public bool Insert(Vector3 point)
-    {
+    public bool Insert(Vector3 point) {
         if (!Contains(bound, point)) return false;
 
-        if (points.Count < capacitie)
-        {
+        if (points.Count < capacitie) {
             points.Add(point);
             return true;
         }
-        else
-        {
+        else {
             if (!divided)
                 SubDivide();
 
-            if(nw == null || ne == null || sw == null || se == null) return false;
-            if (nw.Insert(point) || ne.Insert(point) || sw.Insert(point) || se.Insert(point))
-            {
+            if (nw == null || ne == null || sw == null || se == null) return false;
+            if (nw.Insert(point) || ne.Insert(point) || sw.Insert(point) || se.Insert(point)) {
                 return true;
             }
         }
@@ -60,24 +52,23 @@ public class QuadTree
     }
 
     public List<Vector3> Query(Bound range, List<Vector3> listPoints) {
-        if(!bound.Intersect(range)) return listPoints;
+        if (!bound.Intersect(range)) return listPoints;
 
-        foreach(var point in points) {
-            if(Contains(range, point)) listPoints.Add(point);
+        foreach (var point in points) {
+            if (Contains(range, point)) listPoints.Add(point);
         }
 
-        if(divided) {
-            nw.Query(range, listPoints);
-            ne.Query(range, listPoints);
-            sw.Query(range, listPoints);
-            se.Query(range, listPoints);
+        if (divided) {
+            if (nw != null) nw.Query(range, listPoints);
+            if (ne != null) ne.Query(range, listPoints);
+            if (sw != null) sw.Query(range, listPoints);
+            if (se != null) se.Query(range, listPoints);
         }
 
         return listPoints;
     }
 
-    public bool Contains(Bound bound, Vector3 point)
-    {
+    public bool Contains(Bound bound, Vector3 point) {
         return point.X >= bound.xMin && point.X < bound.xMax &&
                point.Y >= bound.yMin && point.Y < bound.yMax;
     }
