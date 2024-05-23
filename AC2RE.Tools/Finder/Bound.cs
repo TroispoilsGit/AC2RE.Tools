@@ -11,14 +11,15 @@ public class Bound
     }
 
     public float xMin { get; set; }
-    public float xMax { get; set;}
-    public float yMin { get; set;}
-    public float yMax { get; set;}
+    public float xMax { get; set; }
+    public float yMin { get; set; }
+    public float yMax { get; set; }
 
-    public bool Intersect(Bound bound) {
-        return xMin < bound.xMax &&
-                xMax > bound.xMin &&
-                yMin < bound.yMax &&
-                yMax > bound.yMin;
+    public bool Intersect(Bound bound)
+    {
+        return xMin <= bound.xMax &&
+           xMax >= bound.xMin &&
+           yMin <= bound.yMax &&
+           yMax >= bound.yMin;
     }
 }

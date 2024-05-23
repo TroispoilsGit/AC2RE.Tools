@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using AC2RE.Definitions;
 
 namespace AC2RE.Tools;
 
@@ -49,6 +50,19 @@ public class QuadTree {
         }
 
         return false;
+    }
+
+    public List<Vector3> QueryLandblock(CellId cellId) {
+        Bound range = new Bound(cellId.landblockX * 16, cellId.landblockY * 16, 
+        (cellId.landblockX + 1) * 16, (cellId.landblockY + 1) * 16);
+
+        return Query(range, new());
+    }
+
+    public List<Vector3> QueryNeighbouringPoints(Vector2 point) {
+        Bound range = new Bound(point.X, point.Y, point.X + 1.5f, point.Y + 1.5f);
+
+        return Query(range, new());
     }
 
     public List<Vector3> Query(Bound range, List<Vector3> listPoints) {

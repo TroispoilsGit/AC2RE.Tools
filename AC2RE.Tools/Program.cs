@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Drawing;
 using System.Numerics;
+using AC2RE.Definitions;
 using AC2RE.Tools;
 
 Console.WriteLine("Creation List.");
@@ -20,9 +21,11 @@ for(int y = 0; y < points.GetLength(0);  y++) {
 Console.WriteLine("Insert Done.");
 Console.ReadLine();
 
-var listPoints = quadTree.Query(new Bound(2030,2030,2050,2050), new());
-
+var listPoints = quadTree.QueryNeighbouringPoints(new Vector2(1, 1));
+Console.WriteLine(listPoints.Count);
 foreach(var l in listPoints)
     Console.WriteLine(l.ToString());
+
+Console.WriteLine(MathsTools.CalculateSlope(listPoints[0], listPoints[1], listPoints[2]));
 
 Console.WriteLine("Done.");
