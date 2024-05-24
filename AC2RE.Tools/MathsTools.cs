@@ -21,6 +21,8 @@ public static class MathsTools
 
         // Normalize the normal vector
         Vector3 normalizedN = Vector3.Normalize(N);
+        if (normalizedN.Z < 0) normalizedN = normalizedN * -1;
+        
 
         // Reference normal vector for a horizontal plane (e.g., [0, 0, 1])
         Vector3 nRef = new Vector3(0.0f, 0.0f, 1.0f);

@@ -11,12 +11,12 @@ public class QuadTree {
     public QuadTree? ne { get; set; }
     public QuadTree? sw { get; set; }
     public QuadTree? se { get; set; }
-    public List<Vector3> points { get; set; }
+    public List<Point> points { get; set; }
 
     public QuadTree(Bound bound, int capacitie = 4) {
         this.bound = bound;
         this.capacitie = capacitie;
-        points = new List<Vector3>();
+        points = new List<Point>();
         divided = false;
     }
 
@@ -32,7 +32,7 @@ public class QuadTree {
         divided = true;
     }
 
-    public bool Insert(Vector3 point) {
+    public bool Insert(Point point) {
         if (!Contains(bound, point)) return false;
 
         if (points.Count < capacitie) {
@@ -52,20 +52,20 @@ public class QuadTree {
         return false;
     }
 
-    public List<Vector3> QueryLandblock(CellId cellId) {
+    public List<Point> QueryLandblock(CellId cellId) {
         Bound range = new Bound(cellId.landblockX * 16, cellId.landblockY * 16, 
         (cellId.landblockX + 1) * 16, (cellId.landblockY + 1) * 16);
 
         return Query(range, new());
     }
 
-    public List<Vector3> QueryNeighbouringPoints(Vector2 point) {
+    public List<Point> QueryNeighbouringPoints(Vector2 point) {
         Bound range = new Bound(point.X, point.Y, point.X + 1.5f, point.Y + 1.5f);
 
         return Query(range, new());
     }
 
-    public List<Vector3> Query(Bound range, List<Vector3> listPoints) {
+    public List<Point> Query(Bound range, List<Point> listPoints) {
         if (!bound.Intersect(range)) return listPoints;
 
         foreach (var point in points) {
@@ -82,8 +82,8 @@ public class QuadTree {
         return listPoints;
     }
 
-    public bool Contains(Bound bound, Vector3 point) {
-        return point.X >= bound.xMin && point.X < bound.xMax &&
-               point.Y >= bound.yMin && point.Y < bound.yMax;
+    public bool Contains(Bound bound, Point point) {
+        return point.point.X >= bound.xMin && point.point.X < bound.xMax &&
+               point.point.Y >= bound.yMin && point.point.Y < bound.yMax;
     }
 }

@@ -9,7 +9,7 @@ namespace AC2RE.ToolsTest {
         private readonly Mock<DatReader> mockDatReader;
 
         public HeightMapTests() {
-            mockDatReader = new Mock<DatReader>(@"/home/troispoils/Documents/DatFiles/cell_1.dat");
+            mockDatReader = new Mock<DatReader>(@"C:\DatFiles\cell_1.dat");
         }
 
         [Fact]

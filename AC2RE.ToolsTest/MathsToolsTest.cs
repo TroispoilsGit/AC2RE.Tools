@@ -34,7 +34,7 @@ public class MathsToolsTest
     {
         Vector3 p1 = new Vector3(0, 0, 0);
         Vector3 p2 = new Vector3(1, 0, 0);
-        Vector3 p3 = new Vector3(0, 1, 2);
+        Vector3 p3 = new Vector3(0, 0, 2);
 
         float slope = MathsTools.CalculateSlope(p1, p2, p3);
 

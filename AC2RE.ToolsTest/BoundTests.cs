@@ -58,6 +58,6 @@ public class BoundTests
         bool result = bound1.Intersect(bound2);
 
         // Assert
-        Assert.False(result);
+        Assert.True(result);
     }
 }

@@ -12,11 +12,11 @@ namespace AC2RE.Tools {
         public DatReader cellReader;
 
         public HeightMap() {
-            cellReader = new(@"/home/troispoils/Documents/DatFiles/cell_1.dat");
+            cellReader = new(@"C:\DatFiles\cell_1.dat");
         }
 
-        public Vector3[,] GeneratePositions() {
-            var points = new Vector3[LANDBLOCK_SIZE * (BLOCK_SIZE - 1), LANDBLOCK_SIZE * (BLOCK_SIZE - 1)];
+        public Point[,] GeneratePositions() {
+            var points = new Point[LANDBLOCK_SIZE * (BLOCK_SIZE - 1), LANDBLOCK_SIZE * (BLOCK_SIZE - 1)];
 
             for (byte landy = 0; landy < LANDBLOCK_SIZE; landy++) {
                 for (byte landx = 0; landx < LANDBLOCK_SIZE; landx++) {
@@ -24,10 +24,24 @@ namespace AC2RE.Tools {
                 }
             }
 
+            CalculateSlopeEachPoint(points);
+
             return points;
         }
 
-        private void ProcessLandBlock(Vector3[,] points, byte landx, byte landy) {
+        private void CalculateSlopeEachPoint(Point[,] points) {
+            Console.WriteLine("Calcule Slope.");
+            for (int y = 0; y < points.GetLength(0) - 1; y++) {
+                for (int x = 0; x < points.GetLength(1) - 1; x++) {
+                    var slope = MathsTools.CalculateSlope(points[x, y].point, points[x + 1, y].point, points[x, y + 1].point);
+                    points[x, y].passable = slope < 40 ? true : false;
+                    points[x, y].slope = slope;
+                }
+            }
+            Console.WriteLine("Done calcule Slope.");
+        }
+
+        private void ProcessLandBlock(Point[,] points, byte landx, byte landy) {
             var cellId = new CellId(landx, landy, 0xFF, 0xFF);
             var landBlockId = new DataId(cellId.id);
 
@@ -43,7 +57,7 @@ namespace AC2RE.Tools {
             PopulatePoints(points, landBlockData, landx, landy);
         }
 
-        private void PopulatePoints(Vector3[,] points, CLandBlockData landBlockData, byte landx, byte landy) {
+        private void PopulatePoints(Point[,] points, CLandBlockData landBlockData, byte landx, byte landy) {
             for (int y = 0; y < BLOCK_SIZE - 1; y++) {
                 for (int x = 0; x < BLOCK_SIZE - 1; x++) {
                     var vectorPoint = CreateVectorPoint(landBlockData, landx, landy, x, y);
@@ -52,14 +66,19 @@ namespace AC2RE.Tools {
             }
         }
 
-        private Vector3 CreateVectorPoint(CLandBlockData landBlockData, byte landx, byte landy, int x, int y) {
+        private Point CreateVectorPoint(CLandBlockData landBlockData, byte landx, byte landy, int x, int y) {
             //TODO: add CELL_SIZE for calculate real pitch or another position
             var pos = x * BLOCK_SIZE + y;
-            var posX = landx * BLOCK_SIZE + x - landx;
-            var posY = (LANDBLOCK_SIZE * BLOCK_SIZE) - (landy * BLOCK_SIZE + y) - 1 - (LANDBLOCK_SIZE - landy - 1);
+            int posX = (landx * BLOCK_SIZE + x) * CELL_SIZE;
+            int posY = (GLOBAL_SIZE) - ((landy * BLOCK_SIZE + y) * CELL_SIZE) - 1 - (LANDBLOCK_SIZE - landy - CELL_SIZE - 1);
+            //var posX = landx * BLOCK_SIZE + x - landx;
+            //var posY = (LANDBLOCK_SIZE * BLOCK_SIZE) - (landy * BLOCK_SIZE + y) - 1 - (LANDBLOCK_SIZE - landy - 1);
             var posZ = landBlockData.heights[pos];
 
-            return new Vector3(posX, posY, posZ);
+            return new Point() {
+                point = new(posX, posY, posZ),
+                passable = false,
+            };
         }
     }
 }

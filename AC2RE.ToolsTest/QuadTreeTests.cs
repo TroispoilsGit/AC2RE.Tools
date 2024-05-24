@@ -11,7 +11,7 @@ public class QuadTreeTests
         // Arrange
         Bound bound = new Bound(0, 0, 10, 10);
         QuadTree quadTree = new QuadTree(bound);
-        Vector3 point = new Vector3(5, 5, 0);
+        Point point = new Point() { point = new(5, 5, 0) };
 
         // Act
         bool result = quadTree.Insert(point);
@@ -27,7 +27,7 @@ public class QuadTreeTests
         // Arrange
         Bound bound = new Bound(0, 0, 10, 10);
         QuadTree quadTree = new QuadTree(bound);
-        Vector3 point = new Vector3(15, 15, 0);
+        Point point = new Point() { point = new(15, 15, 0) };
 
         // Act
         bool result = quadTree.Insert(point);
@@ -61,8 +61,8 @@ public class QuadTreeTests
         // Arrange
         Bound bound = new Bound(0, 0, 10, 10);
         QuadTree quadTree = new QuadTree(bound, 1); // Set capacity to 1 for easy subdivision
-        Vector3 point1 = new Vector3(5, 5, 0);
-        Vector3 point2 = new Vector3(7, 7, 0);
+        Point point1 = new Point() { point = new(5, 5, 0) };
+        Point point2 = new Point() { point = new(7, 7, 0) };
 
         // Act
         quadTree.Insert(point1);
@@ -81,16 +81,16 @@ public class QuadTreeTests
         // Arrange
         Bound bound = new Bound(0, 0, 10, 10);
         QuadTree quadTree = new QuadTree(bound);
-        Vector3 point1 = new Vector3(2, 2, 0);
-        Vector3 point2 = new Vector3(8, 8, 0);
-        Vector3 point3 = new Vector3(12, 12, 0); // Outside the initial bounds
+        Point point1 = new Point() { point = new(2, 2, 0) };
+        Point point2 = new Point() { point = new(8, 8, 0) };
+        Point point3 = new Point() { point = new(12, 12, 0) }; // Outside the initial bounds
         quadTree.Insert(point1);
         quadTree.Insert(point2);
         quadTree.Insert(point3);
 
         // Act
         Bound queryBound = new Bound(0, 0, 10, 10);
-        List<Vector3> foundPoints = quadTree.Query(queryBound, new List<Vector3>());
+        List<Point> foundPoints = quadTree.Query(queryBound, new List<Point>());
 
         // Assert
         Assert.Contains(point1, foundPoints);
