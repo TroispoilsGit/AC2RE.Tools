@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 namespace AC2RE.Tools {
     public class Point {
         public Vector3 point { get; set; }
+        public Vector2 realPoint { get; set; }
         public bool passable { get; set; }
         public float slope { get; set; }
 
         public override string? ToString() {
-            return $"[{passable}] : {point} ({slope}°)";
+            return $"[{passable}] : {realPoint} ({slope}°)";
         }
     }
 }

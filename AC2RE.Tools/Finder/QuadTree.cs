@@ -60,7 +60,7 @@ public class QuadTree {
     }
 
     public List<Point> QueryNeighbouringPoints(Vector2 point) {
-        Bound range = new Bound(point.X, point.Y, point.X + 1.5f, point.Y + 1.5f);
+        Bound range = new Bound(point.X - 1.5f, point.Y - 1.5f, point.X + 1.5f, point.Y + 1.5f);
 
         return Query(range, new());
     }
@@ -70,6 +70,7 @@ public class QuadTree {
 
         foreach (var point in points) {
             if (Contains(range, point)) listPoints.Add(point);
+            //Console.WriteLine($"Point {point} is within {range}");
         }
 
         if (divided) {
@@ -83,7 +84,7 @@ public class QuadTree {
     }
 
     public bool Contains(Bound bound, Point point) {
-        return point.point.X >= bound.xMin && point.point.X < bound.xMax &&
-               point.point.Y >= bound.yMin && point.point.Y < bound.yMax;
+        return point.realPoint.X >= bound.xMin && point.realPoint.X < bound.xMax &&
+               point.realPoint.Y >= bound.yMin && point.realPoint.Y < bound.yMax;
     }
 }
