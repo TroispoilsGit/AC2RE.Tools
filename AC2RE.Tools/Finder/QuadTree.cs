@@ -64,6 +64,22 @@ public class QuadTree {
 
         return Query(range, new());
     }
+    public List<Vector3> QueryTrianglePoints(Vector2 point) {
+        float x = (float)Math.Truncate(point.X);
+        float y = (float)Math.Truncate(point.Y);
+        Bound range = new Bound(x, y, x + 1.5f, y + 1.5f);
+
+        var query =  Query(range, new());
+        
+        List<Vector3> vectors = new();
+        foreach(var p in query) {
+            if(p.realPoint.X == x + 1 && p.realPoint.Y == y + 1) { continue; }
+            vectors.Add(p.point);
+            Console.WriteLine(p.ToString());
+        }
+
+        return vectors;
+    }
 
     public List<Point> Query(Bound range, List<Point> listPoints) {
         if (!bound.Intersect(range)) return listPoints;

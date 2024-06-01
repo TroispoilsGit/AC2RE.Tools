@@ -32,9 +32,9 @@ public class QuadTreeImageGenerator
                     var pos = points[x, y].realPoint;
                     var passable = points[x, y].passable;
                     byte slope = (byte)(points[x, y].slope * byte.MaxValue / 90);
-                    //Color color = Color.FromRgb((byte)points[x, y].slope, (byte)points[x, y].slope, (byte)points[x, y].slope);
+                    Color color = Color.FromRgb((byte)points[x, y].slope, (byte)points[x, y].slope, (byte)points[x, y].slope);
                     //image[x, 40790 - y] = points[x, y].passable ? Color.White : Color.Black;
-                    var color = passable ? Color.White : Color.Black;
+                    //var color = passable ? Color.White : Color.Black;
                     //var color = Color.FromRgb(slope, slope, slope);
 
                     RectangleF rectangle = new RectangleF((int)pos.X, (int)pos.Y, 1, 1);

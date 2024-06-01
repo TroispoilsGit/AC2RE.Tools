@@ -21,25 +21,35 @@ for(int y = 0; y < points.GetLength(0);  y++) {
     }
 }
 Console.WriteLine($"Insert {count} Done.");
-Console.ReadLine();
+//Console.ReadLine();
 
 Finding finding= new Finding(new Vector2(1856, 1088), 
 new Vector2(2366, 2033), quadTree);
-foreach(var path in finding.pathList) {
-    Console.WriteLine("Point:" + path);
-}
+Console.WriteLine($"Point in path found: {finding.pathList.Count}");
 
-Console.ReadLine();
+//Console.ReadLine();
 Console.WriteLine("Start Image.");
 QuadTreeImageGenerator quadTreeImageGenerator = new(4080, 4080);
 quadTreeImageGenerator.GenerateImage("./test.png", points, finding);
 Console.WriteLine("Image Done.");
-Console.ReadLine();
+//Console.ReadLine();
 
 //var listPoints = quadTree.Query(new(2030f, 2030f, 2048f, 2048f), new());
-var listPoints = quadTree.QueryNeighbouringPoints(new(2030, 2030));
+/*var listPoints = quadTree.QueryNeighbouringPoints(new(2030, 2030));
+Console.WriteLine(listPoints.Count);
+foreach(var l in listPoints)
+    Console.WriteLine(l.ToString());*/
+
+//For Fal'Tel
+float xPos = (float)(0x76 * 16 + (38.163296 / 10)); //X: 7F 140.7 => 127 * (140.7 / 10) = 1786.89
+float yPos = (float)((255 - 0xB8 - 1) * 16 + (135.74054 / 10)); //Y: 7F 78 => 127 * (78 / 10) = 990.6
+var testZ = new Vector2(xPos, yPos);
+var listPoints = quadTree.QueryTrianglePoints(testZ);
 Console.WriteLine(listPoints.Count);
 foreach(var l in listPoints)
     Console.WriteLine(l.ToString());
+
+var Z = MathsTools.CalculateZ(listPoints[0], listPoints[1], listPoints[2], xPos * 10, yPos * 10);
+Console.WriteLine(Z.ToString());
 
 Console.WriteLine("Done.");

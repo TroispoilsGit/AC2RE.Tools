@@ -38,4 +38,30 @@ public static class MathsTools
 
         return (float)angleInDegrees;
     }
+
+    public static float CalculateZ(Vector3 A, Vector3 B, Vector3 C, float x, float y)
+    {
+        // Vecteurs du triangle
+        Vector3 v0 = B - A;
+        Vector3 v1 = C - A;
+        Vector3 v2 = new Vector3(x, y, 0) - new Vector3(A.X, A.Y, 0);
+
+        // Calcul des produits scalaires
+        float d00 = Vector3.Dot(v0, v0);
+        float d01 = Vector3.Dot(v0, v1);
+        float d11 = Vector3.Dot(v1, v1);
+        float d20 = Vector3.Dot(v2, v0);
+        float d21 = Vector3.Dot(v2, v1);
+
+        // Calcul des coordonnées barycentriques
+        float denom = d00 * d11 - d01 * d01;
+        float v = (d11 * d20 - d01 * d21) / denom;
+        float w = (d00 * d21 - d01 * d20) / denom;
+        float u = 1.0f - v - w;
+
+        // Interpolation de Z en utilisant les coordonnées barycentriques
+        float z = u * A.Z + v * B.Z + w * C.Z;
+
+        return z;
+    }
 }

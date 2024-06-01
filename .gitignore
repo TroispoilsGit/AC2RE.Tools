@@ -41,3 +41,4 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+AC2RE.Tools/test.png

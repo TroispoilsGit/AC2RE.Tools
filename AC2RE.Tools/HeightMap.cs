@@ -96,8 +96,8 @@ namespace AC2RE.Tools
         {
             //TODO: add CELL_SIZE for calculate real pitch or another position
             var pos = x * BLOCK_SIZE + y;
-            int posX = (landx * BLOCK_SIZE + x) * CELL_SIZE - (landx - CELL_SIZE);
-            int posY = GLOBAL_SIZE - ((landy * BLOCK_SIZE + y) * CELL_SIZE) - (LANDBLOCK_SIZE - landy - CELL_SIZE - 1);
+            int posX = (landx * BLOCK_SIZE + x) * CELL_SIZE - (landx * CELL_SIZE);
+            int posY = GLOBAL_SIZE - ((landy * BLOCK_SIZE + y) * CELL_SIZE) - 1 - ((LANDBLOCK_SIZE * CELL_SIZE) - (landy * CELL_SIZE) - 1);
             int rposX = landx * BLOCK_SIZE + x - landx;
             int rposY = (LANDBLOCK_SIZE * BLOCK_SIZE) - (landy * BLOCK_SIZE + y) - 1 - (LANDBLOCK_SIZE - landy - 1);
             //var posX = landx * BLOCK_SIZE + x - landx;
