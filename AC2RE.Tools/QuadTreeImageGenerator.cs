@@ -29,7 +29,7 @@ public class QuadTreeImageGenerator
             {
                 for (int x = 0; x < points.GetLength(1); x++)
                 {
-                    var pos = points[x, y].realPoint;
+                    var pos = points[x, y].point;
                     var passable = points[x, y].passable;
                     byte slope = (byte)(points[x, y].slope * byte.MaxValue / 90);
                     Color color = Color.FromRgb((byte)points[x, y].slope, (byte)points[x, y].slope, (byte)points[x, y].slope);
@@ -37,7 +37,7 @@ public class QuadTreeImageGenerator
                     //var color = passable ? Color.White : Color.Black;
                     //var color = Color.FromRgb(slope, slope, slope);
 
-                    RectangleF rectangle = new RectangleF((int)pos.X, (int)pos.Y, 1, 1);
+                    RectangleF rectangle = new RectangleF((int)pos.X, (int)pos.Y, 10, 10);
 
                     Brush brush = Brushes.Solid(color);
 
@@ -46,12 +46,37 @@ public class QuadTreeImageGenerator
             }
 
             image.Mutate(ctx => ctx.Fill(Brushes.Solid(Color.Red), new RectangleF((int)find.start.X, (int)find.start.Y, 1, 1)));
-            foreach(var path in find.pathList) {
+            foreach (var path in find.pathList)
+            {
                 image.Mutate(ctx => ctx.Fill(Brushes.Solid(Color.Red), new RectangleF((int)path.X, (int)path.Y, 1, 1)));
             }
             image.Mutate(ctx => ctx.Fill(Brushes.Solid(Color.Red), new RectangleF((int)find.goal.X, (int)find.goal.Y, 1, 1)));
             // Save the image
             image.Save(filePath);
+        }
+    }
+
+    public static void GenerateImageByBoundQuery(string path, List<Point> points, int lenght)
+    {
+        using (var image = new Image<Rgb24>(lenght, lenght))
+        {
+            foreach (var point in points)
+            {
+                var pos = point.point;
+                var passable = point.passable;
+                byte slope = (byte)(point.slope * byte.MaxValue / 90);
+                //Color color = Color.FromRgb((byte)point.slope, (byte)point.slope, (byte)point.slope);
+                byte scene = (byte)(point.sceneIndex * byte.MaxValue / 8);
+                byte index = (byte)(point.terrainType * byte.MaxValue / 60);
+                Color color = Color.FromRgb(index, scene, slope);
+
+                RectangleF rectangle = new RectangleF((int)pos.X, (int)pos.Y, 10, 10);
+
+                Brush brush = Brushes.Solid(color);
+
+                image.Mutate(ctx => ctx.Fill(brush, rectangle));
+            }
+            image.Save(path);
         }
     }
 

@@ -13,7 +13,7 @@ public static class MathsTools
         // Calculate the normal vector N = Vector3.Cross(U, V)
         Vector3 N = Vector3.Cross(U, V);
 
-         // Check if the normal vector is zero, which means the points are collinear
+        // Check if the normal vector is zero, which means the points are collinear
         if (N == Vector3.Zero)
         {
             return 0;
@@ -22,7 +22,7 @@ public static class MathsTools
         // Normalize the normal vector
         Vector3 normalizedN = Vector3.Normalize(N);
         if (normalizedN.Z < 0) normalizedN = normalizedN * -1;
-        
+
 
         // Reference normal vector for a horizontal plane (e.g., [0, 0, 1])
         Vector3 nRef = new Vector3(0.0f, 0.0f, 1.0f);
@@ -63,5 +63,21 @@ public static class MathsTools
         float z = u * A.Z + v * B.Z + w * C.Z;
 
         return z;
+    }
+    public static int GetTerrainInCellInfo(uint cellInfo)
+    {
+        return (int)(cellInfo >> 0) & (0x7f);
+    }
+    public static int GetRoadInCellInfo(uint cellInfo)
+    {
+        return (int)(cellInfo >> 24) & (0xff);
+    }
+    public static int GetColorInCellInfo(uint cellInfo)
+    {
+        return (int)(cellInfo >> 16) & (0xff);
+    }
+    public static int GetSceneInCellInfo(uint cellInfo)
+    {
+        return (int)(cellInfo >> 7) & (0x1f);
     }
 }

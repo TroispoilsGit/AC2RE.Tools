@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AC2RE.Tools", "AC2RE.Tools\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC2RE.ToolsTest", "AC2RE.ToolsTest\AC2RE.ToolsTest.csproj", "{96CFF015-0CBF-493A-A262-3812CB5F2D2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC2RE.DatModifyConsole", "AC2RE.DatModifyConsole\AC2RE.DatModifyConsole.csproj", "{73FE4625-87B5-41BA-A825-1505C5FAA351}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC2RE.Definitions", "..\AC2RE_Gitlab\src\AC2RE.Definitions\AC2RE.Definitions.csproj", "{1FD0DE44-688A-4A2F-B43C-0A421A9F72F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{96CFF015-0CBF-493A-A262-3812CB5F2D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96CFF015-0CBF-493A-A262-3812CB5F2D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96CFF015-0CBF-493A-A262-3812CB5F2D2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73FE4625-87B5-41BA-A825-1505C5FAA351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73FE4625-87B5-41BA-A825-1505C5FAA351}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73FE4625-87B5-41BA-A825-1505C5FAA351}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73FE4625-87B5-41BA-A825-1505C5FAA351}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FD0DE44-688A-4A2F-B43C-0A421A9F72F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FD0DE44-688A-4A2F-B43C-0A421A9F72F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FD0DE44-688A-4A2F-B43C-0A421A9F72F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FD0DE44-688A-4A2F-B43C-0A421A9F72F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

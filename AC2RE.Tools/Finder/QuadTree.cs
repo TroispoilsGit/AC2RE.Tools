@@ -53,8 +53,8 @@ public class QuadTree {
     }
 
     public List<Point> QueryLandblock(CellId cellId) {
-        Bound range = new Bound(cellId.landblockX * 16, cellId.landblockY * 16, 
-        (cellId.landblockX + 1) * 16, (cellId.landblockY + 1) * 16);
+        Bound range = new Bound(cellId.landblockX * 16 * 10, cellId.landblockY * 16 * 10, 
+        (cellId.landblockX + 1) * 16 * 10, (cellId.landblockY + 1) * 16 * 10);
 
         return Query(range, new());
     }
@@ -73,7 +73,7 @@ public class QuadTree {
         
         List<Vector3> vectors = new();
         foreach(var p in query) {
-            if(p.realPoint.X == x + 1 && p.realPoint.Y == y + 1) { continue; }
+            if(p.point.X == x + 1 && p.point.Y == y + 1) { continue; }
             vectors.Add(p.point);
             Console.WriteLine(p.ToString());
         }
@@ -100,7 +100,7 @@ public class QuadTree {
     }
 
     public bool Contains(Bound bound, Point point) {
-        return point.realPoint.X >= bound.xMin && point.realPoint.X < bound.xMax &&
-               point.realPoint.Y >= bound.yMin && point.realPoint.Y < bound.yMax;
+        return point.point.X >= bound.xMin && point.point.X < bound.xMax &&
+               point.point.Y >= bound.yMin && point.point.Y < bound.yMax;
     }
 }

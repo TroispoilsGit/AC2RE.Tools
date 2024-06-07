@@ -52,7 +52,7 @@ namespace AC2RE.Tools
                 {
                     if (!point.passable) continue;
 
-                    var neighbor = new Vector2(point.realPoint.X, point.realPoint.Y);
+                    var neighbor = new Vector2(point.point.X, point.point.Y);
                     if (pathListClose.Contains(neighbor)) continue;
 
                     float tentativeGScore = scoreStart + 1; // Distance de 1 dans une grille

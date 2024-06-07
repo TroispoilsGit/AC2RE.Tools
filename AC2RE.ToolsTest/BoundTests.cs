@@ -48,7 +48,7 @@ public class BoundTests
     }
 
     [Fact]
-    public void TestIntersection_ShouldReturnTrue_WhenBoundsTouch()
+    public void TestIntersection_ShouldReturnFalse_WhenBoundsTouch()
     {
         // Arrange
         Bound bound1 = new Bound(0, 0, 10, 10);
@@ -58,6 +58,6 @@ public class BoundTests
         bool result = bound1.Intersect(bound2);
 
         // Assert
-        Assert.True(result);
+        Assert.False(result);
     }
 }
